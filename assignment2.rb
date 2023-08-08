@@ -126,7 +126,4 @@ product_project = Project.new('Product', 500000, 200000)
 
 puts "Engineering Department Employees: #{engineering.get_department_employees}"
 puts "Service Project Revenue: #{service_project.revenue}"
-puts "Product Project Profit: #{product_project.profit}"
-
-  
-  
+puts "Product Project Profit: #{product_project.profit}" 
