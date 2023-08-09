@@ -58,72 +58,135 @@ class Employee
   end
 end
 
-class Hr
-    attr_reader :employees
-  
-    def initialize
-      @employees = []
+class Department
+  attr_accessor :name, :department_head, :employees
+
+  def initialize(name, department_head)
+    @name = name
+    @department_head = department_head
+    @employees = []
+  end
+end
+
+class Project
+  attr_accessor :name, :type, :clients, :profit
+
+  def initialize(name, type, clients, profit)
+    @name = name
+    @type = type
+    @clients = clients
+    @profit = profit
+  end
+
+end
+
+class Company
+  attr_accessor :departments, :projects, :yearly_revenue, :service_profit, :product_profit
+
+  def initialize
+    @departments = []
+    @projects = []
+    @yearly_revenue = 0
+    @service_profit = 0
+    @product_profit = 0
+  end
+
+  def add_department(department)
+    @departments << department
+  end
+
+  def add_project(project)
+    @projects << project
+  end
+
+  def add_employee(hr, employee)
+    hr.add_employee(employee)
+  end
+
+  def get_all_employee_details(hr)
+    hr.get_all_employee_details
+  end
+  def calculate_yearly_revenue()
+    
+    @projects.each do |project|
+ 
+    @yearly_revenue = project.profit + @yearly_revenue
     end
+  end
+  def calculate_yearly_profit()
   
-    def add_employee(name, age, department, division, designation)
-      employee = Employee.new(name, age, department, division, designation)
-      @employees << employee
-      save_to_csv
+    @projects.each do |project|
+     if project.type == 'Service'
+
+         @service_profit =  @service_profit + project.profit
+     else
+  
+         @product_profit = @product_profit + project.profit
+     end
     end
-  
-    def get_all_employees
-      @employees
-    end
-  
-    private
-  
-    def save_to_csv
-      CSV.open('employees.csv', 'w') do |csv|
-        csv << ['Name', 'Age', 'Department', 'Division', 'Designation']
-        @employees.each do |employee|
-            puts employee
-          csv << [employee.name, employee.age, employee.department, employee.division, employee.designation]
-        end
-      end
+  end
+end
+
+class HR
+  attr_accessor :name, :employees
+
+  def initialize(name)
+    @name = name
+    @employees = []
+  end
+
+  def add_employee(employee)
+    @employees << employee
+    save_to_csv(employee)
+  end
+
+  def get_all_employee_details
+    @employees.each do |employee|
+      puts "Name: #{employee.name}, Age: #{employee.age}, Department: #{employee.department}, Division: #{employee.division}, Designation: #{employee.designation}"
     end
   end
 
-  class Department
-    attr_reader :name, :department_head, :employees
-  
-    def initialize(name, department_head)
-      @name = name
-      @department_head = department_head
-      @employees = []
-    end
-  
-    def add_employee(employee)
-      @employees << employee
-    end
-  
-    def get_department_employees
-      @employees
+  private
+
+  def save_to_csv(employee)
+    CSV.open('employees.csv', 'a+') do |csv|
+      csv << [employee.name, employee.age, employee.department, employee.division, employee.designation]
     end
   end
+end
 
-  class Project
-    attr_accessor :type, :revenue, :profit
-  
-    def initialize(type, revenue, profit)
-      @type = type
-      @revenue = revenue
-      @profit = profit
-    end
-  end
+# Example usage
+company = Company.new
 
-  hr = Hr.new
-engineering = Department.new('Engineering', 'Engineering Head')
-hr.add_employee('M testuser', 30, 'Engineering', 'Development', 'Software Engineer')
-engineering.add_employee(hr.get_all_employees.last)
+hr_department = Department.new('HR', 'HR Department Head')
+engineering_department = Department.new('Engineering', 'Engineering Department Head')
+sales_department = Department.new('Sales', 'Sales Department Head')
+marketing_department = Department.new('Marketing', 'Marketing Department Head')
 
-service_project = Project.new('Service', 100000, 50000)
-product_project = Project.new('Product', 500000, 200000)
+company.add_department(hr_department)
+company.add_department(engineering_department)
+company.add_department(sales_department)
+company.add_department(marketing_department)
 
-puts "Engineering Department Employees: #{engineering.get_department_employees}"
-puts "Service Project Revenue: #{service_project.revenue}"
-puts "Product Project Profit: #{product_project.profit}" 
+service_project = Project.new('Healthcare web','Service', 'client 1', 50000)
+product_project = Project.new('webonise portal','Product', 'client 2', 200000)
+
+
+company.add_project(service_project);
+company.add_project(product_project);
+
+hr = HR.new('HR Manager')
+
+employee1 = Employee.new('John Doe', 30, 'HR', 'Recruitment', 'Recruiter')
+employee2 = Employee.new('Jane Smith', 28, 'Engineering', 'Development', 'Software Engineer')
+
+company.add_employee(hr, employee1)
+company.add_employee(hr, employee2)
+engineering_department.employees << employee2
+
+company.get_all_employee_details(hr)
+company.calculate_yearly_revenue
+company.calculate_yearly_profit
+puts company.yearly_revenue
+puts company.service_profit
+puts company.product_profit
