@@ -99,29 +99,17 @@ class Company
     @projects << project
   end
 
-  def add_employee(hr, employee)
-    hr.add_employee(employee)
-  end
-
-  def get_all_employee_details(hr)
-    hr.get_all_employee_details
-  end
   def calculate_yearly_revenue()
-    
     @projects.each do |project|
- 
-    @yearly_revenue = project.profit + @yearly_revenue
+ 	@yearly_revenue = project.profit + @yearly_revenue
     end
   end
   def calculate_yearly_profit()
-  
     @projects.each do |project|
-     if project.type == 'Service'
-
-         @service_profit =  @service_profit + project.profit
-     else
-  
-         @product_profit = @product_profit + project.profit
+       if project.type == 'Service'
+	     @service_profit =  @service_profit + project.profit
+       else
+  	     @product_profit = @product_profit + project.profit
      end
     end
   end
@@ -180,11 +168,11 @@ hr = HR.new('HR Manager')
 employee1 = Employee.new('John Doe', 30, 'HR', 'Recruitment', 'Recruiter')
 employee2 = Employee.new('Jane Smith', 28, 'Engineering', 'Development', 'Software Engineer')
 
-company.add_employee(hr, employee1)
-company.add_employee(hr, employee2)
+hr.add_employee(employee1)
+hr.add_employee(employee2)
 engineering_department.employees << employee2
 
-company.get_all_employee_details(hr)
+hr.get_all_employee_details()
 company.calculate_yearly_revenue
 company.calculate_yearly_profit
 puts company.yearly_revenue
