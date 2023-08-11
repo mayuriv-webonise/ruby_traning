@@ -12,4 +12,3 @@
     puts doctor.take_checkup("10 PM")
     puts doctor.take_checkup("9 AM")
     puts doctor.take_surgery("10 PM")
-    
