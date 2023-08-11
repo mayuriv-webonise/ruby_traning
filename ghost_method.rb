@@ -8,3 +8,4 @@
     
     obj = DynamicMethods.new
     obj.undefined_method 
+    
