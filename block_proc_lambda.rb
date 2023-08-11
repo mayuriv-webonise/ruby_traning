@@ -30,3 +30,4 @@ end
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 puts "Count of even numbers: #{count_numbers(numbers, count_even)}"
+

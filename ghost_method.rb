@@ -1,12 +1,11 @@
-#ghost methods
+  #ghost methods
 
-class DynamicMethods
-    def method_missing(method_name, *args)
-      puts "Undefined method: #{method_name}"
+  class DynamicMethods
+      def method_missing(method_name, *args)
+        puts "Undefined method: #{method_name}"
+      end
     end
-  end
-  
-  obj = DynamicMethods.new
-  obj.undefined_method 
-  
-  
+    
+    obj = DynamicMethods.new
+    obj.undefined_method 
+    

@@ -1,14 +1,14 @@
-#open classes
+    #open classes
 
-module Repetation
-    def calculate
-        puts "calculated values..."
+    module Repetation
+        def calculate
+            puts "calculated values..."
+        end
     end
-end
- class MyOpenClass
- include Repetation
-end
+    class MyOpenClass
+    include Repetation
+    end
 
-obj = MyOpenClass.new
-puts obj.calculate
+    obj = MyOpenClass.new
+    puts obj.calculate
 
