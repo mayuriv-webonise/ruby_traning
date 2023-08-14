@@ -1,6 +1,4 @@
-  require("./assignment3.rb")
-
-  class HR
+  class Hr
     attr_reader :employees
 
     def initialize

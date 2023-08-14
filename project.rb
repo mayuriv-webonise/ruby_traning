@@ -1,6 +1,5 @@
-  require("./assignment3.rb")
-
-  class Project
+ 
+ class Project
     attr_accessor :type, :revenue, :profit
 
     def initialize(type, revenue)

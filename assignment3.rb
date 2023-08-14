@@ -1,12 +1,12 @@
   require 'csv'
   require("./employee.rb")
   require("./factory_method.rb")
-  require("./hr_class.rb")
-  require("./department_class.rb")
-  require("./project_class.rb")
+  require("./hr.rb")
+  require("./department.rb")
+  require("./project.rb")
 
   # Sample usage:
-  hr = HR.new
+  hr = Hr.new
 
   hr.add_employee('John Doe', 30, 'Engineering', 'Development', 'Software Engineer')
   hr.add_employee('Jane Smith', 28, 'Engineering', 'QA', 'QA Engineer')

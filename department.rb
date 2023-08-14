@@ -1,5 +1,3 @@
-  require("./assignment3.rb")
-
   class Department
     attr_reader :name, :department_head, :employees
 

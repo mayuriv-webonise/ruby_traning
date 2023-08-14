@@ -1,5 +1,4 @@
-  require("./assignment3.rb")
-
+require("./assignment3.rb")
   class Employee
     attr_reader :name, :age, :department, :division, :designation
 
