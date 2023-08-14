@@ -69,26 +69,57 @@ class Department
 end
 
 class Project
-  attr_accessor :name, :type, :clients, :profit
+  attr_accessor :name, :profit
 
-  def initialize(name, type, clients, profit)
+  def initialize(name, profit)
     @name = name
-    @type = type
-    @clients = clients
     @profit = profit
   end
-
 end
 
-class Company
+class Product < Project
+  attr_accessor :clients, :totalProductProfit
+
+  def initialize(name, clients, profit)
+    super(name, profit)
+    @clients = clients
+    @totalProductProfit = 0
+  end
+
+  def calculate_product_profit
+    @totalProductProfit += profit
+  end
+
+  def total_profit
+    @totalProductProfit
+  end
+end
+
+class Service < Project
+  attr_accessor :clients, :totalServiceProfit
+
+  def initialize(name, clients, profit)
+    super(name, profit)
+    @clients = clients
+    @totalServiceProfit = 0
+  end
+
+  def calculate_service_profit
+    @totalServiceProfit += profit
+  end
+
+  def total_profit
+    @totalServiceProfit
+  end
+end
+
+class Company 
   attr_accessor :departments, :projects, :yearly_revenue, :service_profit, :product_profit
 
-  def initialize
+  def initialize(*projects)
     @departments = []
     @projects = []
     @yearly_revenue = 0
-    @service_profit = 0
-    @product_profit = 0
   end
 
   def add_department(department)
@@ -99,19 +130,27 @@ class Company
     @projects << project
   end
 
-  def calculate_yearly_revenue()
+  def calculate_yearly_revenue
     @projects.each do |project|
  	@yearly_revenue = project.profit + @yearly_revenue
     end
   end
-  def calculate_yearly_profit()
+  def calculate_yearly_profit
+    total_product_profit = 0
+    total_service_profit = 0
+
     @projects.each do |project|
-       if project.type == 'Service'
-	     @service_profit =  @service_profit + project.profit
-       else
-  	     @product_profit = @product_profit + project.profit
-     end
+      if project.is_a?(Product)
+        project.calculate_product_profit
+        total_product_profit += project.total_profit
+      elsif project.is_a?(Service)
+        project.calculate_service_profit
+        total_service_profit += project.total_profit
+      end
     end
+
+    puts "Total Product Profit: #{total_product_profit}"
+    puts "Total Service Profit: #{total_service_profit}"
   end
 end
 
@@ -156,12 +195,12 @@ company.add_department(engineering_department)
 company.add_department(sales_department)
 company.add_department(marketing_department)
 
-service_project = Project.new('Healthcare web','Service', 'client 1', 50000)
-product_project = Project.new('webonise portal','Product', 'client 2', 200000)
+service_project = Service.new('Healthcare web', 'client 1', 50000)
+product_project = Product.new('webonise portal', 'client 2', 200000)
 
 
-company.add_project(service_project);
-company.add_project(product_project);
+company.add_project(service_project)
+company.add_project(product_project)
 
 hr = HR.new('HR Manager')
 
@@ -175,6 +214,3 @@ engineering_department.employees << employee2
 hr.get_all_employee_details()
 company.calculate_yearly_revenue
 company.calculate_yearly_profit
-puts company.yearly_revenue
-puts company.service_profit
-puts company.product_profit
