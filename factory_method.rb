@@ -5,7 +5,7 @@ class Devops < Employee; end
 
 class EmployeeFactory
 	def create_employee(name, age, department, division, designation)
-		case division
+	case division
 		when 'Development'
 			Development.new(name, age, department, designation)
 		when 'QA'

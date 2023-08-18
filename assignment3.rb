@@ -52,4 +52,3 @@ hr_department.get_department_employees.each do |employee|
   puts "#{employee.name}, #{employee.designation}"
 end
 
-
