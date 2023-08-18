@@ -1,5 +1,4 @@
- 
-class Project
+ class Project
   attr_accessor :type, :revenue, :profit
 
   def initialize(type, revenue)
