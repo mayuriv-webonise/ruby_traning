@@ -1,18 +1,19 @@
-  class Employee
-        attr_reader :name, :age, :department, :division, :designation
 
-        def initialize(name, age, department, designation)
-          @name = name
-          @age = age
-          @department = department
-          @division = division
-          @designation = designation
-        end
+class Employee
+attr_reader :name, :age, :department, :division, :designation
 
-        def to_csv_row
-          [name, age, department, division, designation]
-        end
-  end
+    def initialize(name, age, department, designation)
+        @name = name
+        @age = age
+        @department = department
+        @division = division
+        @designation = designation
+    end
+
+    def to_csv_row
+        [name, age, department, division, designation]
+    end
+end
 
 
 
